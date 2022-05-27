@@ -13,13 +13,17 @@ import java.util.List;
 
 @Component
 public class DataInitializer implements ApplicationRunner {
-    @Autowired
     private PlanetRepository repository;
+
+    @Autowired
+    public DataInitializer(PlanetRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // Initializes 100 planets if there aren't enough saved
-        final int initialCount = 5;
+        final int initialCount = 100;
 
         List<Planet> planets = repository.findAll();
 
@@ -27,7 +31,8 @@ public class DataInitializer implements ApplicationRunner {
         if (planetCount >= initialCount) return;
 
         List<Planet> newPlanets = getPlanets(initialCount - planetCount);
-        System.out.println(newPlanets);
+
+        if (newPlanets == null) return;
 
         planets.addAll(newPlanets);
 
@@ -35,11 +40,15 @@ public class DataInitializer implements ApplicationRunner {
     }
 
     private List<Planet> getPlanets(int count) {
-        final String url =
-                "https://api.nasa.gov/planetary/apod?api_key=ruS8JIATjaE4pnYQbcA0sm2z45cpN2bchaEsV4GP&count=" + count;
+        String baseUrl = "https://api.nasa.gov/planetary/apod";
+        String key = "";
+
+        if (key == "") return null;
+
+        String requestUrl = baseUrl + "?api_key=" + key + "&count=" + count;
 
         RestTemplate restTemplate = new RestTemplate();
 
-        return Arrays.asList(restTemplate.getForObject(url, Planet[].class));
+        return Arrays.asList(restTemplate.getForObject(requestUrl, Planet[].class));
     }
 }
