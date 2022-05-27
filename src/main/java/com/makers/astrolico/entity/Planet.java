@@ -9,7 +9,9 @@ import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "public", name = "planets")
@@ -21,7 +23,7 @@ public class Planet extends AbstractEntity {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @Column(name = "explanation", nullable = false)
+    @Column(name = "explanation", nullable = false, length = 2048)
     private String explanation;
 
     @URL
@@ -31,4 +33,5 @@ public class Planet extends AbstractEntity {
     @URL()
     @Column(name = "url")
     private String url;
+
 }

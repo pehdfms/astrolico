@@ -26,4 +26,15 @@ public abstract class AbstractEntity {
 
     @Column(name = "removed")
     private LocalDateTime removed;
+
+    @PrePersist
+    public void create() {
+        this.created = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void update() {
+        this.updated = LocalDateTime.now();
+    }
+
 }
