@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(schema = "public", name = "planets")
@@ -31,4 +32,6 @@ public class Planet extends AbstractEntity {
     @Column(name = "url")
     private String url;
 
+    @Column(name = "date", nullable = false)
+    private Date date;
 }
