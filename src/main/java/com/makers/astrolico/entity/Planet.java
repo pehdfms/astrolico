@@ -8,6 +8,7 @@ import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -33,5 +34,5 @@ public class Planet extends AbstractEntity {
     private String url;
 
     @Column(name = "date", nullable = false)
-    private Date date;
+    private LocalDate date;
 }
